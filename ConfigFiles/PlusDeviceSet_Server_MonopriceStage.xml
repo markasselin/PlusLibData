@@ -1,0 +1,44 @@
+<PlusConfiguration version="2.7">
+
+  <DataCollection StartupDelaySec="1.0">
+    <DeviceSet
+      Name="PlusServer: Monoprice Stage Control"
+      Description="Control of Monoprice 3D printer as cheap 3DOF positioning stage."
+    />
+    <Device
+      Id="StageDevice"
+      Type="MonopriceStage"
+      HardBoundaryMin="0 0 0"
+      HardBoundaryMax="100 100 100"
+      SoftBoundaryMin="25 25 25"
+      SoftBoundaryMax="75 75 75"
+      Offset="0 0 0"
+      ToolReferenceFrame="Stage" >
+      <DataSources>
+        <DataSource Type="Tool" Id="Position" />
+      </DataSources>
+      <OutputChannels>
+        <OutputChannel Id="StageStream">
+        <DataSource Type="Tool" Id="Position" />
+        </OutputChannel>
+      </OutputChannels>
+    </Device>
+  </DataCollection>
+
+  <PlusOpenIGTLinkServer
+    MaxNumberOfIgtlMessagesToSend="1"
+    MaxTimeSpentWithProcessingMs="50"
+    ListeningPort="18944"
+    SendValidTransformsOnly="TRUE"
+    OutputChannelId="StageStream" >
+    <DefaultClientInfo>
+      <MessageTypes>
+        <Message Type="TRANSFORM" />
+      </MessageTypes>
+      <TransformNames>
+        <Transform Name="PositionToStage" />
+      </TransformNames>
+    </DefaultClientInfo>
+  </PlusOpenIGTLinkServer>
+  
+</PlusConfiguration>
