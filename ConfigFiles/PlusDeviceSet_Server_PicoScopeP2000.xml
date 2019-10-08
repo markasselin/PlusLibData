@@ -1,25 +1,21 @@
 <PlusConfiguration version="2.7">
 
-  <DataCollection StartupDelaySec="1.0" >
+  <DataCollection StartupDelaySec="2.0" >
     <DeviceSet 
       Name="PlusServer: PicoScope P2000 series"
       Description="Broadcasting acquired electrical signal from P2000 series oscilloscope thorugh OpenIGTLink" />
     <Device
       Id="ScopeDevice" 
       Type="PicoScope"
-      ToolReferenceFrame="Scope"
+      NumberOfSamples="1024"
       >
       <DataSources>
-        <DataSource Type="Video" Id="SignalA"  Channel="0" VoltageRangeMv="2000" Coupling="AC"/>
-        <DataSource Type="Video" Id="SignalB"  Channel="1" VoltageRangeMv="2000" Coupling="AC"/>
+        <DataSource Type="Video" Id="SignalA"  Channel="0" VoltageRangeMv="50" Coupling="DC" />
+        <DataSource Type="Video" Id="SignalB"  Channel="1" VoltageRangeMv="50" Coupling="DC" />
       </DataSources>
       <OutputChannels>
-        <OutputChannel Id="ChannelA">
-          <DataSource Id="SignalA" VideoSourceId="SignalA" />
-        </OutputChannel>
-        <OutputChannel Id="ChannelB">
-          <DataSource Id="SignalB" VideoSourceId="SignalB" />
-        </OutputChannel>
+        <OutputChannel Id="ChannelA" VideoDataSourceId="SignalA" />
+        <OutputChannel Id="ChannelB" VideoDataSourceId="SignalB" />
       </OutputChannels>
     </Device>
   </DataCollection>
