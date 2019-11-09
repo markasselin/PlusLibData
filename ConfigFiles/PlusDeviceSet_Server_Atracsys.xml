@@ -11,6 +11,8 @@
       MaxMissingFiducials="1"
       MaxMeanRegistrationErrorMm="1.0"
       ActiveMarkerPairingTimeSec="15"
+      EnableWirelessMarkerButtons="TRUE"
+      EnableVideo="TRUE"
       ToolReferenceFrame="Tracker" >
       <DataSources>
         <DataSource Type="Tool" Id="Stylus" TrackingType="PASSIVE" GeometryFile="AtracsysTools/stylus.ini" />
