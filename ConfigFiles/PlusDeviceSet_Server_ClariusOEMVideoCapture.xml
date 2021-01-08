@@ -1,0 +1,78 @@
+<PlusConfiguration version="2.1">
+  <DataCollection StartupDelaySec="1.0" >
+    <DeviceSet
+      Name="PlusServer: Clarius ultrasound device (OEM API)"
+      Description="Broadcasting acquired video through OpenIGTLink"/>
+    <Device Id="VideoDevice"
+      Type="ClariusOEM"
+      ProbeSerialNum="C3HD052012A0836"
+      PathToCert="ClariusCert/verdure1.pem"
+      ProbeType="C3HD"
+      ImagingApplication="MSK"
+      FrameSize="512 512"
+      EnableAutoGain="FALSE"
+      EnableImu="TRUE"
+      EnableButtons="TRUE"
+      Enable5v="FALSE"
+
+      ColorGainPercent="80"
+      ColorPulseRepFreqKHz="10"
+
+      ConnectionType="DIRECT"
+      WifiSSID="ClariusTestNetwork"
+      WifiPassword="ClariusOEM"
+      >
+      <UsImagingParameters>
+        <Parameter Name="DepthMm" Value="123" />
+        <Parameter Name="GainPercent" Value="90" />
+        <Parameter Name="DynRangeDb" Value="85" />
+        <Parameter Name="TimeGainCompensation" Value="5 5 5" />
+      </UsImagingParameters>
+
+      <DataSources>
+        <DataSource Type="Video" Id="Video" PortName="B" PortUsImageOrientation="UN"/>
+      </DataSources>
+      <OutputChannels>
+        <OutputChannel Id="VideoStream" VideoDataSourceId="Video" />
+      </OutputChannels>
+    </Device>
+
+    <Device
+      Id="CaptureDevice"
+      Type="VirtualCapture"
+      BaseFilename= "ClariusRecording.igs.mha"
+      EnableCapturingOnStart="FALSE"
+      RequestedFrameRate="25"
+      EnableCapturing="TRUE" >
+      <InputChannels>
+        <InputChannel Id="VideoStream" />
+      </InputChannels>
+    </Device>
+
+  </DataCollection>
+
+  <CoordinateDefinitions>
+    <Transform From="Image" To="Reference"
+      Matrix="
+      0.2 0.0 0.0 0.0
+      0.0 0.2 0.0 0.0
+      0.0 0.0 0.2 0.0
+      0 0 0 1" />
+  </CoordinateDefinitions>
+
+  <PlusOpenIGTLinkServer
+    MaxNumberOfIgtlMessagesToSend="1"
+    MaxTimeSpentWithProcessingMs="50"
+    ListeningPort="18944"
+    SendValidTransformsOnly="false"
+    OutputChannelId="VideoStream" >
+    <DefaultClientInfo>
+      <MessageTypes>
+        <Message Type="IMAGE" />
+      </MessageTypes>
+      <ImageNames>
+        <Image Name="Image" EmbeddedTransformToFrame="Reference" />
+      </ImageNames>
+    </DefaultClientInfo>
+  </PlusOpenIGTLinkServer>
+</PlusConfiguration>
