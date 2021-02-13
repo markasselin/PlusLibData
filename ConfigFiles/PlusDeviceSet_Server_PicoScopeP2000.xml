@@ -10,12 +10,17 @@
       NumberOfSamples="1024"
       >
       <DataSources>
-        <DataSource Type="Video" Id="SignalA"  Channel="0" VoltageRangeMv="50" Coupling="DC" />
-        <DataSource Type="Video" Id="SignalB"  Channel="1" VoltageRangeMv="50" Coupling="DC" />
+        <DataSource
+          Type="Video"
+          Id="PicoSignal"
+          ChAVoltageRangeMv="100"
+          ChACoupling="DC"
+          ChBVoltageRangeMv="100"
+          ChBCoupling="DC"
+        />
       </DataSources>
       <OutputChannels>
-        <OutputChannel Id="ChannelA" VideoDataSourceId="SignalA" />
-        <OutputChannel Id="ChannelB" VideoDataSourceId="SignalB" />
+        <OutputChannel Id="PicoOutput" VideoDataSourceId="PicoSignal" />
       </OutputChannels>
     </Device>
   </DataCollection>
@@ -25,29 +30,13 @@
     MaxTimeSpentWithProcessingMs="50"
     ListeningPort="18944"
     SendValidTransformsOnly="TRUE"
-    OutputChannelId="ChannelA" >
+    OutputChannelId="PicoOutput" >
     <DefaultClientInfo>
       <MessageTypes>
         <Message Type="IMAGE" />
       </MessageTypes>
       <ImageNames>
-        <Image Name="SignalA" EmbeddedTransformToFrame="SignalA" />
-      </ImageNames>
-    </DefaultClientInfo>
-  </PlusOpenIGTLinkServer>
-
-  <PlusOpenIGTLinkServer
-    MaxNumberOfIgtlMessagesToSend="1"
-    MaxTimeSpentWithProcessingMs="50"
-    ListeningPort="18945"
-    SendValidTransformsOnly="TRUE"
-    OutputChannelId="ChannelB" >
-    <DefaultClientInfo>
-      <MessageTypes>
-        <Message Type="IMAGE" />
-      </MessageTypes>
-      <ImageNames>
-        <Image Name="SignalB" EmbeddedTransformToFrame="SignalB" />
+        <Image Name="Signal" EmbeddedTransformToFrame="Signal" />
       </ImageNames>
     </DefaultClientInfo>
   </PlusOpenIGTLinkServer>
